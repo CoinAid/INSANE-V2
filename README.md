@@ -47,7 +47,7 @@ To use the " USE_UPNP=- " or not! Just add if you used to it.
 
 <p> If you want a burn addresss for Trump, I can make one that looks special.</p>
 
-<p> net.cpp needs an update to nodes. You can use as many as you like, but the last line does NOT have a comma (period) at the end of the line</p>
+<p> net.cpp needs an update to nodes. You can use as many as you like, but the last line does NOT have a comma (period) at the end of the line (see line 1137 or about there)</p>
 
 ----
 
