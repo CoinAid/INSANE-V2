@@ -20,24 +20,34 @@
 
 <p>apt-get install git build-essential libssl-dev libboost-all-dev libdb++-dev libminiupnpc-dev qt-sdk -y</p>
 
+
+----
+
+To use the " USE_UPNP=- " or not! Just add if you used to it. 
+
+
+- server
+
+<p>make -f makefile.unix</p>
+
 <p>./insaned</p>
 
 ----
 
-- Linux QT
+- linux qt
 
-<p>make -f makefile.unix USE_UPNP=-</p>
-
-<p>qmake -qt=qt4 USE_UPNP=-<br>
-make
+<p>qmake -qt=qt4</p>
+<p>make</p>
 
 ----
 
-- I mined it to 37 blocks, so would test mine it to 1,000 to be sure. 
+# extra #
 
-- If you want a burn addresss for Trump, I can make one that looks special.
+<p> I mined it to 37 blocks, so would test mine it to 1,000 to be sure. </p>
 
-- net.cpp needs an update to nodes. You can use as many as you like, but the last line does NOT have a comma (period) at the end of the line
+<p> If you want a burn addresss for Trump, I can make one that looks special.</p>
+
+<p> net.cpp needs an update to nodes. You can use as many as you like, but the last line does NOT have a comma (period) at the end of the line</p>
 
 ----
 
