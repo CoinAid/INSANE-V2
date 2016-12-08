@@ -26,6 +26,7 @@
 #include "guiutil.h"
 #include "rpcconsole.h"
 #include "wallet.h"
+#include "test.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -84,11 +85,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Remove "hand" cursor from status bar.
     this->statusBar()->setSizeGripEnabled(false);
 
-//    this->setStyleSheet(".BitcoinGUI { background-image: url(:/images/background-no-logo); } \
-//                        * { color: rgb(255, 255, 255);                      \
-//                            background-color: rgba(255, 255, 255, 0);       \
-//                            selection-background-color: rgb(2, 6, 150);     \
-//                        }                                                   \
+    this->setStyleSheet(".BitcoinGUI { background-image: url(:/images/background); } \
+ //                      * { color: rgb(255, 255, 255);                      \
+ //                          background-color: rgba(255, 255, 255, 0);       \
+ //                          selection-background-color: rgb(2, 6, 150);     \
+ //                      }                                                   \
 //                        QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; } \
 //                        QTableView { background-color: rgb(2, 6, 15);  alternate-background-color: rgb(2, 6, 50); } \
 //                        QHeaderView::section {                                        \
@@ -314,7 +315,15 @@ void BitcoinGUI::createActions()
     lockWalletAction->setToolTip(tr("Lock wallet"));
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-
+    testAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Test insane"), this);
+    testAction->setToolTip(tr("Show information about insane"));
+    testAction->setMenuRole(QAction::TestRole);
+    testQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("Test &Qt"), this);
+    testQtAction->setToolTip(tr("Show information about Qt"));
+    testQtAction->setMenuRole(QAction::TestQtRole);
+	
+	
+	
     exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
@@ -332,6 +341,8 @@ void BitcoinGUI::createActions()
     connect(lockWalletAction, SIGNAL(triggered()), this, SLOT(lockWallet()));
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
+	connect(testAction, SIGNAL(triggered()), this, SLOT(testClicked()));
+    connect(testQtAction, SIGNAL(triggered()), qApp, SLOT(testQt()));
 }
 
 void BitcoinGUI::createMenuBar()
@@ -367,6 +378,8 @@ void BitcoinGUI::createMenuBar()
     help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
+	help->addAction(testAction);
+    help->addAction(testQtAction);
 }
 
 void BitcoinGUI::createToolBars()
@@ -409,6 +422,7 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
             }
 
             aboutAction->setIcon(QIcon(":/icons/toolbar_testnet"));
+			testAction->setIcon(QIcon(":/icons/toolbar_testnet"));
         }
 
         // Keep up to date with client
@@ -517,6 +531,13 @@ void BitcoinGUI::optionsClicked()
 void BitcoinGUI::aboutClicked()
 {
     AboutDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
+void BitcoinGUI::testClicked()
+{
+    testDialog dlg;
     dlg.setModel(clientModel);
     dlg.exec();
 }

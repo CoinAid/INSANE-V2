@@ -95,6 +95,8 @@ private:
     QAction *lockWalletAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
+    QAction *testAction;
+	QAction *testQtAction;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
